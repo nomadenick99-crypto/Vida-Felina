@@ -73,7 +73,7 @@ export const templates = {
     <section class="content-section" aria-labelledby="sobre-title">
       <div class="about-layout">
         <figure class="feature-figure about-image">
-          <img src="../assets/gato-idoso-cinza.jpg" alt="Gato idoso cinza peludo">
+          <img src="assets/gato-idoso-cinza.jpg" alt="Gato idoso cinza peludo">
           <figcaption>Gato idoso cinza peludo</figcaption>
         </figure>
 
