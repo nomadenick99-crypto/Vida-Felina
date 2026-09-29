@@ -199,6 +199,13 @@ export function bindFormHandlers() {
       return;
     }
 
+    // Avisa o resto da aplicação que um cadastro novo foi salvo
+    window.dispatchEvent(
+      new CustomEvent("cadastro:salvo", {
+        detail: { total: storage.getRegistros().length },
+      }),
+    );
+
     window.location.hash = "#confirmacao";
   });
 
