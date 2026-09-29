@@ -23,3 +23,10 @@ router.init();
 
 initMenu();
 initContador();
+
+// As páginas que mostram dados salvos são redesenhadas depois da limpeza
+window.addEventListener("cadastros:apagados", () => {
+  if (["#home", "#confirmacao"].includes(window.location.hash)) {
+    router.render();
+  }
+});
