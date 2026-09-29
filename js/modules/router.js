@@ -47,5 +47,6 @@ export function createRouter({ app }) {
       window.addEventListener("hashchange", render);
       render();
     },
+    render,
   };
 }

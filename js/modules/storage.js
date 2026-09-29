@@ -31,8 +31,10 @@ export const storage = {
   remove(key) {
     try {
       localStorage.removeItem(key);
+      return true;
     } catch (error) {
       console.error(`Não foi possível remover ${key}:`, error);
+      return false;
     }
   },
 
@@ -47,5 +49,11 @@ export const storage = {
     const salvouLista = this.set(STORAGE_KEYS.registros, registros);
     const salvouUltimo = this.set(STORAGE_KEYS.ultimoCadastro, registro);
     return salvouLista && salvouUltimo;
+  },
+
+  limparRegistros() {
+    const removeuLista = this.remove(STORAGE_KEYS.registros);
+    const removeuUltimo = this.remove(STORAGE_KEYS.ultimoCadastro);
+    return removeuLista && removeuUltimo;
   },
 };
