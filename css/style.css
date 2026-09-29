@@ -1,0 +1,978 @@
+/* =========================================================
+   1. CONFIGURACOES GERAIS
+   ========================================================= */
+
+/* O reset (box-sizing, margin, padding) fica no reset.css */
+:root {
+  --green-dark: #234236;
+  --green: #5f8068;
+  --green-light: #dce8df;
+  --cream: #f7f3ea;
+  --white: #ffffff;
+  --text: #29312c;
+  --muted: #66716a;
+  --gold: #c5a96b;
+  --border: #d8ded9;
+
+  /* Escala modular de espacamento - base 0.25rem (4px) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-20: 5rem;
+  --space-32: 8rem;
+}
+
+/* Pagina, tipografia base e elementos globais */
+body {
+  font-family: "Arial", sans-serif;
+  color: var(--text);
+  background: linear-gradient(
+    180deg,
+    #e6e8e5 0%,
+    var(--cream) 32%,
+    #eef1ed 100%
+  );
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--gold);
+  opacity: 0.8;
+}
+
+/* =========================================================
+   2. ESTRUTURA PRINCIPAL
+   ========================================================= */
+
+/* Cabecalho e navegacao principal */
+.site-header {
+  background: var(--green-dark);
+  color: var(--white);
+}
+
+.navbar {
+  width: min(1120px, 92%);
+  margin: auto;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+  flex-wrap: nowrap;
+  text-decoration: none;
+}
+
+.logo {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: "Arial", sans-serif;
+}
+
+.navbar ul {
+  display: flex;
+  gap: var(--space-6);
+  list-style: none;
+}
+
+.navbar ul li {
+  letter-spacing: 2px;
+}
+
+.menu-mobile {
+  display: none;
+  cursor: pointer;
+  flex: 0 0 auto;
+  margin-left: auto;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+.menu-mobile span {
+  display: block;
+  width: 30px;
+  height: 3px;
+  background-color: var(--white);
+  margin: 6px 0;
+  border-radius: 2px;
+}
+
+/* Conteudo principal e larguras compartilhadas */
+.page-header,
+.content-section,
+.form-section {
+  width: min(1120px, 92%);
+  margin-inline: auto;
+}
+
+.content-section,
+.form-section {
+  padding-block: var(--space-20);
+}
+
+.page-header {
+  padding-block: var(--space-20) var(--space-12);
+}
+
+.form-section {
+  padding-top: var(--space-4);
+}
+
+/* Rodape */
+.site-footer {
+  padding: var(--space-8) 4%;
+  background: #182a22;
+  color: #dfe9e2;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* =========================================================
+   3. ELEMENTOS DE CONTEUDO
+   ========================================================= */
+
+/* Titulos e textos de apoio */
+h2 {
+  color: var(--green-dark);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.15;
+  margin-top: var(--space-2);
+}
+
+h3 {
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  color: var(--green-dark);
+  margin-bottom: var(--space-2);
+}
+
+.page-header h1 {
+  max-width: 850px;
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  line-height: 1.05;
+  color: var(--green-dark);
+  margin: var(--space-2) 0 var(--space-4);
+}
+
+.page-header > p:last-child {
+  max-width: 720px;
+  color: var(--muted);
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+/* Secoes de leitura, colunas, listas e avisos */
+.section-heading {
+  max-width: 760px;
+  margin-bottom: var(--space-10);
+}
+
+.content-section.alt {
+  background: var(--green-light);
+  width: 100%;
+  padding-inline: 4%;
+}
+
+.content-section.alt .section-heading {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.two-columns {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-12);
+}
+
+.two-columns > div:first-child {
+  grid-column: span 7;
+}
+
+.two-columns > div:last-child {
+  grid-column: span 5;
+}
+
+.two-columns p + p {
+  margin-top: var(--space-4);
+}
+
+.check-list {
+  /* Lista vertical de item unico; nao usa o grid de 12 colunas. */
+  width: min(800px, 92%);
+  margin: auto;
+  display: grid;
+  gap: var(--space-3);
+  padding-left: var(--space-5);
+}
+
+.notice {
+  width: min(800px, 92%);
+  margin: var(--space-8) auto 0;
+  padding: var(--space-4);
+  border-left: 4px solid var(--gold);
+  background: #fffaf0;
+}
+
+/* =========================================================
+   4. COMPONENTES
+   ========================================================= */
+
+/* Botoes e chamadas para acao */
+.button {
+  display: inline-block;
+  width: fit-content;
+  margin-top: var(--space-6);
+  padding: var(--space-3) var(--space-5);
+  border: 0;
+  border-radius: 8px;
+  background: var(--green);
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.button-light {
+  background: var(--white);
+  color: var(--green-dark);
+}
+
+.cta {
+  width: min(1120px, 92%);
+  margin: 0 auto var(--space-12);
+  padding: var(--space-8) var(--space-6);
+  background: linear-gradient(135deg, var(--green-dark), var(--green));
+  color: var(--white);
+  border-radius: 18px;
+  text-align: center;
+}
+
+.cta h2,
+.cta p {
+  color: var(--white);
+}
+
+.cta-contador {
+  margin-block: var(--space-3);
+  font-size: 1.15rem;
+}
+
+.cta-contador strong {
+  color: var(--gold);
+}
+
+/* Cartoes de informacao */
+.info-card,
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: var(--space-6);
+}
+
+.cards {
+  width: min(1120px, 92%);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-4);
+}
+
+.cards > .card {
+  grid-column: span 4;
+}
+
+.card p {
+  color: var(--muted);
+}
+
+.cards .card h2 {
+  margin-top: 0;
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+/* Formularios e campos de entrada */
+form {
+  background: var(--white);
+  padding: clamp(var(--space-5), 4vw, var(--space-10));
+  border-radius: 16px;
+  border: 1px solid var(--border);
+}
+
+fieldset {
+  border: 0;
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-8);
+  margin-top: var(--space-8);
+}
+
+fieldset:first-child {
+  border-top: 0;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+legend {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--green-dark);
+  margin-bottom: var(--space-5);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-5);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  grid-column: span 6;
+}
+
+.field.full {
+  grid-column: span 12;
+}
+
+label {
+  font-weight: 700;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: var(--space-3);
+  border: 1px solid #bbc5be;
+  border-radius: 7px;
+  font: inherit;
+  background: #f1f3f1;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.options {
+  /* Lista vertical de checkboxes; nao usa o grid de 12 colunas. */
+  display: grid;
+  gap: var(--space-3);
+}
+
+.options label,
+.consent label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 400;
+}
+
+.options input,
+.consent input {
+  width: auto;
+}
+
+.form-error-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  background: rgba(24, 42, 34, 0.55);
+}
+
+.form-error-dialog {
+  width: min(420px, 100%);
+  padding: var(--space-6);
+  border: 1px solid #d8a8a8;
+  border-radius: 10px;
+  background: var(--white);
+  color: #7c2929;
+  box-shadow: 0 18px 40px rgba(24, 42, 34, 0.22);
+}
+
+.form-error-dialog p {
+  margin-top: var(--space-2);
+}
+
+.confirmation-page {
+  width: min(1120px, 92%);
+  min-height: 70vh;
+  margin-inline: auto;
+  display: grid;
+  place-items: center;
+  padding-block: var(--space-12);
+}
+
+.confirmation-toast {
+  position: relative;
+  width: min(560px, 100%);
+  padding: var(--space-8);
+  border: 1px solid var(--green);
+  border-left: 6px solid var(--gold);
+  border-radius: 10px;
+  background: var(--white);
+  box-shadow: 0 18px 40px rgba(35, 66, 54, 0.16);
+  animation: toast-appear 300ms ease-out both;
+}
+
+.toast-toggle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.toast-close {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-4);
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--muted);
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.toast-close:hover,
+.toast-close:focus-visible {
+  background: var(--green-light);
+  color: var(--green-dark);
+}
+
+.toast-toggle:focus-visible + .confirmation-toast .toast-close {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.toast-toggle:checked + .confirmation-toast {
+  display: none;
+}
+
+.confirmation-toast h1 {
+  margin: var(--space-2) 0 var(--space-3);
+  color: var(--green-dark);
+}
+
+.confirmation-toast .button {
+  margin-top: var(--space-6);
+}
+
+@keyframes toast-appear {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   5. CLASSES E IDS ESPECIFICOS DO PROJETO
+   ========================================================= */
+
+/* Sistema de grid utilizado pelos cards e formularios */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-4);
+}
+
+.col-2 {
+  grid-column: span 2;
+}
+.col-3 {
+  grid-column: span 3;
+}
+.col-4 {
+  grid-column: span 4;
+}
+.col-5 {
+  grid-column: span 5;
+}
+.col-6 {
+  grid-column: span 6;
+}
+.col-7 {
+  grid-column: span 7;
+}
+.col-12 {
+  grid-column: span 12;
+}
+
+/* Hero da pagina inicial: apresenta a causa e a imagem principal. */
+.hero {
+  min-height: 560px;
+  background:
+    linear-gradient(90deg, rgba(35, 66, 54, 0.96), rgba(35, 66, 54, 0.65)),
+    radial-gradient(circle at 80% 30%, #91a996, #31483c 55%, #172c23);
+  color: var(--white);
+}
+
+.hero h1 {
+  max-width: 720px;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  line-height: 1;
+  margin: var(--space-2) 0 var(--space-6);
+}
+
+.hero p:not(.eyebrow) {
+  max-width: 650px;
+  font-size: 1.15rem;
+  color: #edf4ef;
+}
+
+.hero-image {
+  width: 100%;
+  min-height: min(720px, 82vh);
+  background-image:
+    linear-gradient(90deg, rgba(32, 39, 35, 0.72), rgba(76, 84, 79, 0.48)),
+    url("../assets/Gato_lendo.jpg");
+  background-size: cover;
+  background-position: center 25%;
+  background-repeat: no-repeat;
+  padding: clamp(var(--space-12), 10vw, var(--space-32))
+    max(4%, calc((100% - 1120px) / 2));
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Cartao interativo de acompanhamento por fase da vida */
+.senior-card {
+  position: relative;
+  transition:
+    box-shadow 220ms ease,
+    transform 220ms ease;
+}
+
+.senior-summary {
+  cursor: default;
+}
+
+.senior-summary h3 {
+  display: inline;
+}
+
+.senior-summary p {
+  margin-top: var(--space-3);
+}
+
+.senior-extra {
+  display: block;
+  position: static;
+  width: auto;
+  max-height: 0;
+  margin-top: 0;
+  padding: 0 var(--space-6);
+  overflow: hidden;
+  opacity: 0;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--white);
+  box-shadow: 0 18px 35px rgba(35, 66, 54, 0.16);
+  transition:
+    max-height 400ms ease,
+    opacity 300ms ease,
+    margin-top 300ms ease;
+}
+
+/* Grafico de faixas etarias */
+.chart-title {
+  font-weight: 700;
+  color: var(--green-dark);
+}
+
+.age-chart {
+  height: 115px;
+  display: flex;
+  align-items: end;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-3) 0;
+  border-bottom: 2px solid var(--green-dark);
+  background: repeating-linear-gradient(
+    to top,
+    transparent 0 27px,
+    rgba(95, 128, 104, 0.13) 28px
+  );
+}
+
+.chart-bar {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  padding-top: var(--space-1);
+  color: var(--white);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.bar-young {
+  height: 42%;
+  background: #9db5a3;
+}
+
+.bar-adult {
+  height: 62%;
+  background: var(--green);
+}
+
+.bar-senior {
+  height: 92%;
+  background: var(--gold);
+}
+
+.chart-labels {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.chart-labels > * {
+  grid-column: span 4;
+}
+
+.chart-labels strong {
+  color: #94762f;
+}
+
+.chart-note {
+  margin-top: var(--space-3);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* Imagem e texto da secao sobre a causa */
+.about-layout {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  align-items: start;
+  gap: var(--space-8);
+}
+
+.about-image {
+  grid-column: span 5;
+  margin: 0;
+  padding: var(--space-4);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(35, 66, 54, 0.08);
+}
+
+.about-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.about-image figcaption {
+  margin-top: var(--space-3);
+  color: var(--muted);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.about-content {
+  grid-column: span 7;
+  width: 100%;
+}
+
+/* =========================================================
+   6. ESTADOS E INTERACOES
+   ========================================================= */
+
+/* Estados da navegacao, botoes, campos e cartoes */
+.navbar a:hover {
+  color: var(--gold);
+}
+
+.button:hover {
+  filter: brightness(0.9);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 3px solid var(--green-light);
+  border-color: var(--green);
+  background: var(--white);
+  box-shadow: 0 0 0 1px var(--green);
+}
+
+/* Estados de validacao: o JS coloca as classes, o CSS define a aparencia */
+.field.campo-erro input,
+.field.campo-erro select {
+  border-color: #b3261e;
+  background: #fdf1f0;
+}
+
+.field.campo-ok input,
+.field.campo-ok select {
+  border-color: var(--green);
+}
+
+.consent.campo-erro label {
+  color: #b3261e;
+}
+
+.mensagem-erro {
+  color: #b3261e;
+  font-size: 0.85rem;
+}
+
+.senior-card:hover,
+.senior-card:focus-within,
+.senior-card:focus {
+  box-shadow: 0 18px 35px rgba(35, 66, 54, 0.16);
+}
+
+.senior-card:hover .senior-extra,
+.senior-card:focus-within .senior-extra,
+.senior-card:focus .senior-extra {
+  max-height: 320px;
+  padding-block: var(--space-6);
+  margin-top: var(--space-4);
+  opacity: 1;
+}
+
+.cards .card {
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+
+.cards .card:hover,
+.cards .card:focus-within {
+  transform: translateY(-5px) rotate(-0.4deg);
+  border-color: #b4c8b9;
+  box-shadow: 0 14px 28px rgba(35, 66, 54, 0.16);
+}
+
+@media (max-width: 960px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .navbar {
+    position: relative;
+  }
+
+  .DropDown-content {
+    position: absolute;
+    top: 72px;
+    right: 0;
+    width: min(280px, 55vw);
+    min-height: 220px;
+    padding: var(--space-4) 0;
+    background: var(--green-dark);
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: var(--space-4);
+    transform: translateY(-12px);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
+    z-index: 20;
+    border-radius: 0 0 0 12px;
+  }
+
+  .DropDown-content::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    right: 0;
+    width: 70px;
+    height: 20px;
+  }
+
+  .DropDown-content .nav-list {
+    position: static;
+    width: auto;
+    min-height: 0;
+    padding: 0;
+    background: transparent;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .menu-mobile {
+    display: block;
+    z-index: 30;
+  }
+
+  .DropDown-content.aberto {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* Preferencia de acessibilidade para reduzir animacoes */
+@media (prefers-reduced-motion: reduce) {
+  .senior-card,
+  .senior-extra,
+  .cards .card {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   7. RESPONSIVIDADE
+   ========================================================= */
+
+/* Desktop grande - acima de 1280px */
+@media (min-width: 1281px) {
+  .navbar,
+  .page-header,
+  .content-section,
+  .form-section,
+  .cards,
+  .cta {
+    width: min(1320px, 90%);
+  }
+}
+
+/* Ultrawide - acima de 1600px */
+@media (min-width: 1600px) {
+  .cards > .card {
+    grid-column: span 3;
+  }
+}
+
+/* Tablet - ate 960px */
+@media (max-width: 960px) {
+  .cards > .card {
+    grid-column: span 6;
+  }
+
+  .two-columns {
+    gap: var(--space-8);
+  }
+
+  .about-layout {
+    gap: var(--space-6);
+  }
+}
+
+/* Mobile grande - ate 640px */
+@media (max-width: 640px) {
+  .navbar {
+    width: 100%;
+    align-items: center;
+    padding: var(--space-4) 4%;
+    flex-direction: row;
+    gap: var(--space-2);
+  }
+
+  .logo {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .navbar ul {
+    flex-wrap: wrap;
+  }
+
+  .two-columns > div:first-child,
+  .two-columns > div:last-child,
+  .cards > .card,
+  .field,
+  .about-image,
+  .about-content {
+    grid-column: span 12;
+  }
+
+  .hero {
+    min-height: 500px;
+  }
+
+  .about-image {
+    padding: var(--space-4);
+  }
+
+  .hero-image {
+    background-position: center 22%;
+  }
+
+  .senior-extra {
+    position: static;
+    width: auto;
+  }
+
+  .senior-card:hover .senior-extra,
+  .senior-card:focus-within .senior-extra,
+  .senior-card:focus .senior-extra {
+    max-height: 320px;
+    margin-top: var(--space-6);
+    opacity: 1;
+  }
+}
+
+/* Mobile pequeno - ate 400px */
+@media (max-width: 400px) {
+  .button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero-image {
+    padding-inline: 4%;
+  }
+
+  .cta {
+    padding: var(--space-6) var(--space-4);
+  }
+}
