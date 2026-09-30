@@ -32,6 +32,11 @@ Site de uma ONG fictícia dedicada à conscientização e ao cuidado de **gatos 
   - ajustes para o Modo de Alto Contraste do Windows (`forced-colors`);
   - link "Pular para o conteúdo", foco no título ao trocar de página e tecla **Esc** para fechar o menu e a janela de erro;
   - semântica para leitores de tela: regiões (`header`, `nav`, `main`, `footer`), diálogo com `role="dialog"`, `aria-pressed`, `aria-controls` e mensagens de erro ligadas aos campos.
+- **Otimizado para produção**:
+  - HTML, CSS e JavaScript minificados, com os 11 módulos JS reunidos em um único arquivo (16 → 5 requisições);
+  - nomes de arquivo com *hash* para evitar versões antigas em cache;
+  - imagens em **WebP** com JPG de reserva, foto do topo pré-carregada e foto secundária com carregamento preguiçoso;
+  - deploy automático no GitHub Pages com **GitHub Actions**.
 
 ## 🛠️ Tecnologias
 
@@ -42,19 +47,26 @@ Site de uma ONG fictícia dedicada à conscientização e ao cuidado de **gatos 
 | Acessibilidade | WCAG 2.1 AA, `prefers-contrast`, `forced-colors`, `prefers-reduced-motion`             |
 | Comportamento | JavaScript ES6+ com módulos (`import`/`export`), eventos, RegEx, `localStorage`, `JSON` |
 | Versionamento | Git com GitFlow, GitHub (issues, milestones e pull requests)                            |
-| Publicação    | GitHub Pages                                                                            |
+| Build         | Node.js, esbuild (JS e CSS), html-minifier-terser (HTML), sharp (imagens)               |
+| Publicação    | GitHub Pages com deploy automático por GitHub Actions                                   |
 
-Nenhuma biblioteca externa foi usada — nem mesmo fontes baixadas da internet.
+O site não usa nenhuma biblioteca externa — nem mesmo fontes baixadas da internet. As ferramentas da linha **Build** são dependências de desenvolvimento: servem só para gerar a versão de produção e não vão para o site.
 
 ## Estrutura do projeto
 
 ```
 Vida-Felina/
+├── .github/workflows/
+│   └── deploy.yml          # deploy automático no GitHub Pages
 ├── index.html              # página única: cabeçalho, <main id="app"> e rodapé
 ├── README.md
-├── assets/                 # imagens
-│   ├── Gato_lendo.jpg
-│   └── gato-idoso-cinza.jpg
+├── package.json            # comandos (npm run build) e ferramentas de build
+├── build.mjs               # gera a versão de produção na pasta dist/
+├── imagens.mjs             # gera as versões WebP das imagens
+├── assets/                 # imagens (JPG + WebP) e favicon
+│   ├── Gato_lendo.jpg / .webp
+│   ├── gato-idoso-cinza.jpg / .webp
+│   └── favicon.svg
 ├── css/
 │   ├── reset.css           # zera os estilos padrão do navegador
 │   └── style.css           # visual, grid, componentes e responsividade
@@ -86,6 +98,27 @@ Os módulos se comunicam por **eventos personalizados** (`route:rendered`, `cada
 
 > **Não abra o `index.html` com dois cliques.** Com o endereço `file:///`, o navegador bloqueia os módulos JavaScript (erro de CORS) e a página fica vazia. É preciso um servidor local, como o Live Server.
 
+## Build de produção
+
+Requer o **Node.js** instalado.
+
+1. Instale as ferramentas de build (só na primeira vez):
+   ```bash
+   npm install
+   ```
+2. Gere a versão de produção na pasta `dist/`:
+   ```bash
+   npm run build
+   ```
+   O comando mostra um relatório com o tamanho dos arquivos antes e depois da otimização.
+3. Para conferir o resultado, abra o `dist/index.html` com o Live Server.
+
+Ao trocar ou adicionar uma imagem JPG em `assets/`, rode `npm run imagens` para gerar a versão WebP usada no desenvolvimento.
+
+## Deploy
+
+O deploy é automático: a cada merge na `main`, o workflow [`deploy.yml`](.github/workflows/deploy.yml) do **GitHub Actions** instala as dependências (`npm ci`), gera a build (`npm run build`) e publica a pasta `dist/` no GitHub Pages. O andamento de cada deploy aparece na aba **Actions** do repositório.
+
 ## Versionamento
 
 O projeto segue o **GitFlow**:
@@ -105,7 +138,8 @@ As versões seguem o **versionamento semântico** (`MAIOR.MENOR.CORREÇÃO`):
 | [v1.1.0](https://github.com/nomadenick99-crypto/Vida-Felina/releases/tag/v1.1.0) | menu em módulo próprio e contador reativo no rodapé                                                                                                                                                                                             |
 | [v1.2.0](https://github.com/nomadenick99-crypto/Vida-Felina/releases/tag/v1.2.0) | botão para apagar os cadastros ([issue #1](https://github.com/nomadenick99-crypto/Vida-Felina/issues/1), PRs [#2](https://github.com/nomadenick99-crypto/Vida-Felina/pull/2) e [#3](https://github.com/nomadenick99-crypto/Vida-Felina/pull/3)) |
 | [v1.2.1](https://github.com/nomadenick99-crypto/Vida-Felina/releases/tag/v1.2.1) | documentação: este README                                                                                                                                                                                                                       |
-| v1.3.0                                                                           | acessibilidade: correções WCAG 2.1 AA e semântica ([issue #6](https://github.com/nomadenick99-crypto/Vida-Felina/issues/6), PR [#8](https://github.com/nomadenick99-crypto/Vida-Felina/pull/8)), alto contraste e navegação por teclado ([issue #7](https://github.com/nomadenick99-crypto/Vida-Felina/issues/7), PR [#9](https://github.com/nomadenick99-crypto/Vida-Felina/pull/9)) |
+| [v1.3.0](https://github.com/nomadenick99-crypto/Vida-Felina/releases/tag/v1.3.0) | acessibilidade: correções WCAG 2.1 AA e semântica ([issue #6](https://github.com/nomadenick99-crypto/Vida-Felina/issues/6), PR [#8](https://github.com/nomadenick99-crypto/Vida-Felina/pull/8)), alto contraste e navegação por teclado ([issue #7](https://github.com/nomadenick99-crypto/Vida-Felina/issues/7), PR [#9](https://github.com/nomadenick99-crypto/Vida-Felina/pull/9)) |
+| v1.4.0                                                                           | produção: build com minificação ([issue #11](https://github.com/nomadenick99-crypto/Vida-Felina/issues/11), PR [#14](https://github.com/nomadenick99-crypto/Vida-Felina/pull/14)), imagens WebP ([issue #12](https://github.com/nomadenick99-crypto/Vida-Felina/issues/12), PR [#15](https://github.com/nomadenick99-crypto/Vida-Felina/pull/15)) e deploy com GitHub Actions ([issue #13](https://github.com/nomadenick99-crypto/Vida-Felina/issues/13), PR [#16](https://github.com/nomadenick99-crypto/Vida-Felina/pull/16)) |
 
 ## Sobre os dados
 
