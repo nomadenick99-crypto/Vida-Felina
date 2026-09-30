@@ -1,6 +1,7 @@
 const DEFAULT_STORAGE = {
   registros: "vidaFelina.registros",
   ultimoCadastro: "vidaFelina.ultimoCadastro",
+  altoContraste: "vidaFelina.altoContraste",
 };
 
 export const STORAGE_KEYS = DEFAULT_STORAGE;

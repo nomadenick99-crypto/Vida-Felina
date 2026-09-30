@@ -2,6 +2,9 @@ import { createRouter } from "./modules/router.js";
 import { bindFormHandlers } from "./modules/forms.js";
 import { initMenu } from "./modules/menu.js";
 import { initContador } from "./modules/contador.js";
+import { bindConfirmacao } from "./modules/confirmacao.js";
+import { initAltoContraste } from "./modules/contraste.js";
+import { initPularConteudo } from "./modules/atalhos.js";
 
 const app = document.getElementById("app");
 
@@ -16,6 +19,7 @@ if (!window.location.hash) {
 
 window.addEventListener("route:rendered", () => {
   bindFormHandlers();
+  bindConfirmacao();
 });
 
 const router = createRouter({ app });
@@ -23,6 +27,8 @@ router.init();
 
 initMenu();
 initContador();
+initAltoContraste();
+initPularConteudo();
 
 // As páginas que mostram dados salvos são redesenhadas depois da limpeza
 window.addEventListener("cadastros:apagados", () => {

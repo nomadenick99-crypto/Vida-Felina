@@ -14,4 +14,12 @@ export function initMenu() {
 
   // fecha o menu sempre que a página (rota) mudar
   window.addEventListener("hashchange", () => setMenuAberto(false));
+
+  // Esc fecha o menu aberto e devolve o foco ao botão que o abriu
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && dropdown.classList.contains("aberto")) {
+      setMenuAberto(false);
+      menuToggle.focus();
+    }
+  });
 }

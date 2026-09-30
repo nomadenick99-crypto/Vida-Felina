@@ -223,8 +223,22 @@ export function bindFormHandlers() {
   });
 
   // Ao fechar o aviso, o cursor vai para o primeiro campo com erro
-  form.querySelector(".form-error-close")?.addEventListener("click", () => {
+  const fecharAviso = () => {
     hideErrorDialog();
     form.querySelector(".campo-erro input, .campo-erro select")?.focus();
+  };
+
+  form.querySelector(".form-error-close")?.addEventListener("click", fecharAviso);
+
+  // Teclado dentro da janela de erro: Esc fecha e o Tab não sai dela
+  // (o único controle é o botão "Entendi", então o foco fica nele)
+  form.querySelector(".form-error-modal")?.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      fecharAviso();
+    } else if (event.key === "Tab") {
+      event.preventDefault();
+      form.querySelector(".form-error-close")?.focus();
+    }
   });
 }
