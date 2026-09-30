@@ -1,0 +1,5 @@
+# Ferramentas instaladas pelo npm (recriadas com "npm install")
+node_modules/
+
+# Versão de produção gerada por "npm run build"
+dist/

@@ -6,8 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="ONG dedicada à conscientização e ao cuidado de gatos idosos.">
     <title>Vida Felina — Geriatria e Cuidado</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <!-- A foto do topo está no CSS e só seria encontrada depois do JavaScript;
+         o preload começa o download junto com o CSS -->
+    <link rel="preload" href="assets/Gato_lendo.webp" as="image" type="image/webp">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
+    <script>
+        // Aplica o alto contraste antes de a página aparecer (evita piscar).
+        // Mesma regra do contraste.js; a chave é STORAGE_KEYS.altoContraste.
+        try {
+            var escolha = JSON.parse(localStorage.getItem("vidaFelina.altoContraste"));
+            if (escolha === true || (escolha === null && matchMedia("(prefers-contrast: more)").matches)) {
+                document.documentElement.classList.add("alto-contraste");
+            }
+        } catch (erro) {}
+    </script>
 </head>
 
 <body>
@@ -17,7 +31,8 @@
         <nav class="navbar" aria-label="Navegação principal">
             <a class="logo route-link" href="#home">Vida Felina</a>
             <button class="contraste-toggle" type="button" aria-pressed="false">Alto contraste</button>
-            <button class="menu-mobile" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu-principal">
+            <button class="menu-mobile" type="button" aria-label="Menu" aria-expanded="false"
+                aria-controls="menu-principal">
                 <span class="Line1"></span>
                 <span class="Line2"></span>
                 <span class="Line3"></span>
@@ -37,7 +52,7 @@
     <footer class="site-footer">
         <p class="footer-contador" aria-live="polite"></p>
         <button class="footer-limpar" type="button" hidden>Apagar cadastros deste navegador</button>
-        <p>&copy; 2026 Vida Felina — Projeto acadêmico de estudo em HTML5 semântico. · v1.3.0</p>
+        <p>&copy; 2026 Vida Felina — Projeto acadêmico de estudo em HTML5 semântico. · v1.4.0</p>
     </footer>
 
     <script type="module" src="js/main.js"></script>
