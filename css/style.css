@@ -5,13 +5,17 @@
 /* O reset (box-sizing, margin, padding) fica no reset.css */
 :root {
   --green-dark: #234236;
-  --green: #5f8068;
+  /* Cores revisadas para contraste WCAG 2.1 AA (texto >= 4,5:1) */
+  --green: #4a6a53;
   --green-light: #dce8df;
   --cream: #f7f3ea;
   --white: #ffffff;
   --text: #29312c;
-  --muted: #66716a;
-  --gold: #c5a96b;
+  --muted: #535e57;
+  --gold: #c5a96b; /* decorativo: bordas e barras, nao usar em texto pequeno */
+  --gold-text: #7a5f22; /* dourado para texto sobre fundo claro */
+  --gold-light: #ffe9a8; /* dourado para texto sobre fundo escuro */
+  --field-border: #7b877f;
   --border: #d8ded9;
 
   /* Escala modular de espacamento - base 0.25rem (4px) */
@@ -47,9 +51,9 @@ a {
   transition: color 0.3s ease;
 }
 
-a:hover {
+/* Os botoes (a.button) tem fundo proprio; o dourado ficaria sem contraste neles */
+a:not(.button):hover {
   color: var(--gold);
-  opacity: 0.8;
 }
 
 /* =========================================================
@@ -200,7 +204,11 @@ h3 {
   letter-spacing: 0.15em;
   font-size: 0.78rem;
   font-weight: 700;
-  color: var(--gold);
+  color: var(--gold-text);
+}
+
+.hero .eyebrow {
+  color: var(--gold-light);
 }
 
 /* Secoes de leitura, colunas, listas e avisos */
@@ -300,7 +308,7 @@ h3 {
 }
 
 .cta-contador strong {
-  color: var(--gold);
+  color: var(--gold-light);
 }
 
 /* Cartoes de informacao */
@@ -343,6 +351,16 @@ form {
   border: 1px solid var(--border);
 }
 
+.form-note {
+  margin-bottom: var(--space-6);
+  color: var(--muted);
+}
+
+/* #app recebe foco por JavaScript (tabindex="-1"); nao e um controle */
+#app:focus {
+  outline: none;
+}
+
 fieldset {
   border: 0;
   border-top: 1px solid var(--border);
@@ -350,7 +368,8 @@ fieldset {
   margin-top: var(--space-8);
 }
 
-fieldset:first-child {
+fieldset:first-child,
+.form-note + fieldset {
   border-top: 0;
   margin-top: 0;
   padding-top: 0;
@@ -389,7 +408,7 @@ select,
 textarea {
   width: 100%;
   padding: var(--space-3);
-  border: 1px solid #bbc5be;
+  border: 1px solid var(--field-border);
   border-radius: 7px;
   font: inherit;
   background: #f1f3f1;
@@ -464,13 +483,6 @@ textarea {
   animation: toast-appear 300ms ease-out both;
 }
 
-.toast-toggle {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-}
-
 .toast-close {
   position: absolute;
   top: var(--space-3);
@@ -479,7 +491,9 @@ textarea {
   height: 2rem;
   display: grid;
   place-items: center;
+  border: 0;
   border-radius: 50%;
+  background: transparent;
   color: var(--muted);
   font-size: 1.7rem;
   line-height: 1;
@@ -490,15 +504,6 @@ textarea {
 .toast-close:focus-visible {
   background: var(--green-light);
   color: var(--green-dark);
-}
-
-.toast-toggle:focus-visible + .confirmation-toast .toast-close {
-  outline: 2px solid var(--gold);
-  outline-offset: 2px;
-}
-
-.toast-toggle:checked + .confirmation-toast {
-  display: none;
 }
 
 .confirmation-toast h1 {
@@ -581,7 +586,7 @@ textarea {
   width: 100%;
   min-height: min(720px, 82vh);
   background-image:
-    linear-gradient(90deg, rgba(32, 39, 35, 0.72), rgba(76, 84, 79, 0.48)),
+    linear-gradient(90deg, rgba(20, 26, 23, 0.85), rgba(20, 26, 23, 0.65)),
     url("../assets/Gato_lendo.jpg");
   background-size: cover;
   background-position: center 25%;
@@ -660,7 +665,9 @@ textarea {
   justify-content: center;
   align-items: start;
   padding-top: var(--space-1);
-  color: var(--white);
+  border: 1px solid var(--green-dark);
+  border-bottom: 0;
+  color: #1c2a22;
   font-size: 0.78rem;
   font-weight: 700;
 }
@@ -672,7 +679,7 @@ textarea {
 
 .bar-adult {
   height: 62%;
-  background: var(--green);
+  background: #8fae97;
 }
 
 .bar-senior {
@@ -695,7 +702,7 @@ textarea {
 }
 
 .chart-labels strong {
-  color: #94762f;
+  color: var(--gold-text);
 }
 
 .chart-note {
@@ -838,9 +845,13 @@ textarea:focus {
     transform: translateY(-12px);
     opacity: 0;
     pointer-events: none;
+    /* visibility tira os links escondidos da ordem do Tab;
+       o atraso de 0.3s deixa a animacao de fechar terminar antes */
+    visibility: hidden;
     transition:
       transform 0.3s ease,
-      opacity 0.3s ease;
+      opacity 0.3s ease,
+      visibility 0s linear 0.3s;
     z-index: 20;
     border-radius: 0 0 0 12px;
   }
@@ -877,6 +888,8 @@ textarea:focus {
     transform: translateY(0);
     opacity: 1;
     pointer-events: auto;
+    visibility: visible;
+    transition-delay: 0s;
   }
 }
 
@@ -929,6 +942,13 @@ textarea:focus {
 
 /* Mobile grande - ate 640px */
 @media (max-width: 640px) {
+  /* Os filhos ocupam as 12 colunas; sem o espaco entre colunas,
+     a grade cabe em telas de 320px sem cortar o texto */
+  .two-columns,
+  .about-layout {
+    column-gap: 0;
+  }
+
   .navbar {
     width: 100%;
     align-items: center;
