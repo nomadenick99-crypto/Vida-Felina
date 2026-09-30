@@ -588,23 +588,12 @@ textarea {
   gap: var(--space-4);
 }
 
-.col-2 {
-  grid-column: span 2;
-}
-.col-3 {
-  grid-column: span 3;
-}
+/* Apenas as larguras usadas no HTML (4, 6 e 12 colunas) */
 .col-4 {
   grid-column: span 4;
 }
-.col-5 {
-  grid-column: span 5;
-}
 .col-6 {
   grid-column: span 6;
-}
-.col-7 {
-  grid-column: span 7;
 }
 .col-12 {
   grid-column: span 12;
