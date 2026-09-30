@@ -10,7 +10,8 @@ const routeTitles = {
 
 export function createRouter({ app }) {
   const updateNavState = (route) => {
-    const links = document.querySelectorAll(".route-link");
+    // Só os links do menu; a logo não deve ser anunciada como "página atual"
+    const links = document.querySelectorAll(".nav-list .route-link");
     links.forEach((link) => {
       const active = link.getAttribute("href") === route;
       link.setAttribute("aria-current", active ? "page" : "false");

@@ -14,12 +14,12 @@
     <header class="site-header">
         <nav class="navbar" aria-label="Navegação principal">
             <a class="logo route-link" href="#home">Vida Felina</a>
-            <button class="menu-mobile" type="button" aria-label="Abrir menu" aria-expanded="false">
+            <button class="menu-mobile" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu-principal">
                 <span class="Line1"></span>
                 <span class="Line2"></span>
                 <span class="Line3"></span>
             </button>
-            <div class="DropDown-content">
+            <div class="DropDown-content" id="menu-principal">
                 <ul class="nav-list">
                     <li><a class="route-link" href="#home" aria-current="page">Início</a></li>
                     <li><a class="route-link" href="#projetos">Projetos</a></li>
@@ -29,7 +29,7 @@
         </nav>
     </header>
 
-    <main id="app" aria-live="polite"></main>
+    <main id="app" tabindex="-1"></main>
 
     <footer class="site-footer">
         <p class="footer-contador" aria-live="polite"></p>

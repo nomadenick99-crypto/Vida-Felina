@@ -73,7 +73,7 @@ export const templates = {
     <section class="content-section" aria-labelledby="sobre-title">
       <div class="about-layout">
         <figure class="feature-figure about-image">
-          <img src="assets/gato-idoso-cinza.jpg" alt="Gato idoso cinza peludo">
+          <img src="assets/gato-idoso-cinza.jpg" alt="Gato de pelo longo acinzentado, deitado sobre uma superfície escura e olhando para a frente">
           <figcaption>Gato idoso cinza peludo</figcaption>
         </figure>
 
@@ -99,9 +99,9 @@ export const templates = {
               </p>
             </div>
 
-            <div class="info-card senior-card" tabindex="0">
+            <div class="info-card senior-card" tabindex="0" role="group" aria-labelledby="senior-title">
               <div class="senior-summary">
-                <h3>Quando o gato é considerado sênior?</h3>
+                <h3 id="senior-title">Quando o gato é considerado sênior?</h3>
                 <p>
                   Diretrizes veterinárias consideram, de forma geral,
                   gatos acima de 10 anos como seniores. A idade, porém,
@@ -222,17 +222,19 @@ export const templates = {
   "#cadastro": () => `
     <header class="page-header">
       <p class="eyebrow">Engajamento</p>
-      <h1>Faça parte da nossa rede</h1>
+      <h1 id="cadastro-title">Faça parte da nossa rede</h1>
       <p>
         Preencha o formulário para demonstrar interesse em colaborar
         com nossas iniciativas.
       </p>
     </header>
 
-    <section class="form-section" aria-labelledby="form-title">
-      <form id="cadastroForm" novalidate>
+    <section class="form-section" aria-labelledby="cadastro-title">
+      <form id="cadastroForm" aria-labelledby="cadastro-title" aria-describedby="form-nota" novalidate>
+        <p class="form-note" id="form-nota">Os campos marcados com * são obrigatórios.</p>
+
         <fieldset>
-          <legend id="form-title">Dados pessoais</legend>
+          <legend>Dados pessoais</legend>
 
           <div class="form-grid grid-12">
             <div class="field full col-12">
@@ -341,10 +343,10 @@ export const templates = {
         </div>
 
         <button class="button" type="submit">Enviar cadastro</button>
-        <div class="form-error-modal" role="alert" aria-live="assertive">
-          <div class="form-error-dialog">
-            <strong>Revise seu cadastro</strong>
-            <p>Preencha corretamente os campos obrigatórios antes de enviar.</p>
+        <div class="form-error-modal">
+          <div class="form-error-dialog" role="dialog" aria-modal="true" aria-labelledby="form-error-title" aria-describedby="form-error-msg">
+            <strong id="form-error-title">Revise seu cadastro</strong>
+            <p id="form-error-msg">Preencha corretamente os campos obrigatórios antes de enviar.</p>
             <button class="button form-error-close" type="button">Entendi</button>
           </div>
         </div>
@@ -361,9 +363,8 @@ export const templates = {
 
     return `
       <section class="confirmation-page" aria-labelledby="confirmation-title">
-        <input class="toast-toggle" type="checkbox" id="close-toast">
         <div class="confirmation-toast" role="status">
-          <label class="toast-close" for="close-toast" aria-label="Fechar aviso">&times;</label>
+          <button class="toast-close" type="button" aria-label="Fechar aviso">&times;</button>
           <div>
             <p class="eyebrow">Cadastro enviado</p>
             <h1 id="confirmation-title">Cadastro confirmado!</h1>
