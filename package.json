@@ -4,7 +4,8 @@
   "private": true,
   "description": "SPA da ONG fictícia Vida Felina, dedicada ao cuidado de gatos idosos.",
   "scripts": {
-    "build": "node build.mjs"
+    "build": "node build.mjs",
+    "imagens": "node imagens.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.28.2",

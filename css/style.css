@@ -627,6 +627,14 @@ textarea {
   background-image:
     linear-gradient(90deg, rgba(20, 26, 23, 0.85), rgba(20, 26, 23, 0.65)),
     url("../assets/Gato_lendo.jpg");
+  /* Navegadores modernos escolhem o WebP (menor); os antigos ignoram
+     esta declaracao e ficam com o JPG da linha de cima */
+  background-image:
+    linear-gradient(90deg, rgba(20, 26, 23, 0.85), rgba(20, 26, 23, 0.65)),
+    image-set(
+      url("../assets/Gato_lendo.webp") type("image/webp"),
+      url("../assets/Gato_lendo.jpg") type("image/jpeg")
+    );
   background-size: cover;
   background-position: center 25%;
   background-repeat: no-repeat;
