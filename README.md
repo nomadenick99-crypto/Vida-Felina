@@ -25,7 +25,13 @@ Site de uma ONG fictícia dedicada à conscientização e ao cuidado de **gatos 
   - nome de quem se cadastrou exibido na confirmação;
   - botão para **apagar os cadastros** deste navegador.
 - **Menu mobile acessível**, com botão real e `aria-expanded`.
-- **Layout responsivo** para desktop, tablet e celular, respeitando a preferência de movimento reduzido.
+- **Layout responsivo** para desktop, tablet e celular (sem conteúdo cortado em 320px), respeitando a preferência de movimento reduzido.
+- **Acessibilidade (WCAG 2.1 AA)**:
+  - cores com contraste de pelo menos 4,5:1 nos textos;
+  - **modo de alto contraste** pelo botão do cabeçalho ou pela configuração do sistema (`prefers-contrast`), com a escolha salva no navegador;
+  - ajustes para o Modo de Alto Contraste do Windows (`forced-colors`);
+  - link "Pular para o conteúdo", foco no título ao trocar de página e tecla **Esc** para fechar o menu e a janela de erro;
+  - semântica para leitores de tela: regiões (`header`, `nav`, `main`, `footer`), diálogo com `role="dialog"`, `aria-pressed`, `aria-controls` e mensagens de erro ligadas aos campos.
 
 ## 🛠️ Tecnologias
 
@@ -33,6 +39,7 @@ Site de uma ONG fictícia dedicada à conscientização e ao cuidado de **gatos 
 | ------------- | --------------------------------------------------------------------------------------- |
 | Estrutura     | HTML5 semântico, atributos ARIA                                                         |
 | Estilo        | CSS3, variáveis CSS, Grid, Flexbox, `@media`, `transition`, `@keyframes`                |
+| Acessibilidade | WCAG 2.1 AA, `prefers-contrast`, `forced-colors`, `prefers-reduced-motion`             |
 | Comportamento | JavaScript ES6+ com módulos (`import`/`export`), eventos, RegEx, `localStorage`, `JSON` |
 | Versionamento | Git com GitFlow, GitHub (issues, milestones e pull requests)                            |
 | Publicação    | GitHub Pages                                                                            |
@@ -59,8 +66,11 @@ Vida-Felina/
         ├── forms.js        # máscaras, validação e envio do formulário
         ├── storage.js      # único acesso ao localStorage
         ├── utils.js        # funções de apoio (limpar texto, validar CPF, e-mail...)
-        ├── menu.js         # menu mobile
-        └── contador.js     # contador de voluntários e botão de apagar cadastros
+        ├── menu.js         # menu mobile (abre, fecha e Esc)
+        ├── contador.js     # contador de voluntários e botão de apagar cadastros
+        ├── confirmacao.js  # botão de fechar o aviso da confirmação
+        ├── contraste.js    # modo de alto contraste
+        └── atalhos.js      # link "Pular para o conteúdo"
 ```
 
 Os módulos se comunicam por **eventos personalizados** (`route:rendered`, `cadastro:salvo`, `cadastros:apagados`), o que evita que um dependa do funcionamento interno do outro.
@@ -94,11 +104,12 @@ As versões seguem o **versionamento semântico** (`MAIOR.MENOR.CORREÇÃO`):
 | 1.0.0                                                                            | primeira publicação do site (sem tag — o Git foi adotado no final do desenvolvimento)                                                                                                                                                           |
 | [v1.1.0](https://github.com/nomadenick99-crypto/Vida-Felina/releases/tag/v1.1.0) | menu em módulo próprio e contador reativo no rodapé                                                                                                                                                                                             |
 | [v1.2.0](https://github.com/nomadenick99-crypto/Vida-Felina/releases/tag/v1.2.0) | botão para apagar os cadastros ([issue #1](https://github.com/nomadenick99-crypto/Vida-Felina/issues/1), PRs [#2](https://github.com/nomadenick99-crypto/Vida-Felina/pull/2) e [#3](https://github.com/nomadenick99-crypto/Vida-Felina/pull/3)) |
-| v1.2.1                                                                           | documentação: este README                                                                                                                                                                                                                       |
+| [v1.2.1](https://github.com/nomadenick99-crypto/Vida-Felina/releases/tag/v1.2.1) | documentação: este README                                                                                                                                                                                                                       |
+| v1.3.0                                                                           | acessibilidade: correções WCAG 2.1 AA e semântica ([issue #6](https://github.com/nomadenick99-crypto/Vida-Felina/issues/6), PR [#8](https://github.com/nomadenick99-crypto/Vida-Felina/pull/8)), alto contraste e navegação por teclado ([issue #7](https://github.com/nomadenick99-crypto/Vida-Felina/issues/7), PR [#9](https://github.com/nomadenick99-crypto/Vida-Felina/pull/9)) |
 
 ## Sobre os dados
 
-Os cadastros ficam salvos **apenas no navegador de quem preencheu** (localStorage) e não são enviados para nenhum servidor. Eles podem ser apagados a qualquer momento pelo botão **"Apagar cadastros deste navegador"**, no rodapé. Por ser um projeto de estudo, os dados não são criptografados — não use informações reais.
+Os cadastros ficam salvos **apenas no navegador de quem preencheu** (localStorage) e não são enviados para nenhum servidor. Eles podem ser apagados a qualquer momento pelo botão **"Apagar cadastros deste navegador"**, no rodapé. Por ser um projeto de estudo, os dados não são criptografados — não use informações reais. A escolha do modo de alto contraste também fica salva no navegador, separada dos cadastros.
 
 ## Ferramentas de apoio
 
