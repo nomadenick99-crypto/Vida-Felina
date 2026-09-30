@@ -107,6 +107,56 @@ a:not(.button):hover {
   padding: 0;
 }
 
+/* Botao de alto contraste no cabecalho */
+.contraste-toggle {
+  margin-left: auto;
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--white);
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.contraste-toggle:hover {
+  color: var(--gold);
+}
+
+.contraste-toggle[aria-pressed="true"] {
+  background: var(--white);
+  color: var(--green-dark);
+}
+
+.contraste-toggle + .menu-mobile {
+  margin-left: 0;
+}
+
+/* Link "Pular para o conteudo": fica fora da tela ate receber foco */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--space-4);
+  z-index: 100;
+  padding: var(--space-3) var(--space-5);
+  border: 2px solid var(--green-dark);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--green-dark);
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+}
+
+/* Titulo que recebe foco por JavaScript ao trocar de pagina */
+h1[tabindex="-1"]:focus {
+  outline: none;
+}
+
 .menu-mobile span {
   display: block;
   width: 30px;
@@ -897,8 +947,13 @@ textarea:focus {
 @media (prefers-reduced-motion: reduce) {
   .senior-card,
   .senior-extra,
-  .cards .card {
+  .cards .card,
+  .DropDown-content {
     transition: none;
+  }
+
+  .confirmation-toast {
+    animation: none;
   }
 }
 
@@ -1016,5 +1071,212 @@ textarea:focus {
 
   .cta {
     padding: var(--space-6) var(--space-4);
+  }
+}
+
+/* =========================================================
+   8. ALTO CONTRASTE
+   ========================================================= */
+
+/* Modo de alto contraste do site: ativado pela classe .alto-contraste
+   no <html> (botao do cabecalho ou prefers-contrast: more, via contraste.js).
+   Fundo preto, texto branco (21:1) e destaques amarelos (19,5:1). */
+.alto-contraste {
+  --text: #ffffff;
+  --muted: #ffffff;
+  --gold-text: #ffff00;
+  --gold-light: #ffff00;
+  --field-border: #ffffff;
+}
+
+.alto-contraste body {
+  background: #000000;
+  color: #ffffff;
+}
+
+.alto-contraste .site-header,
+.alto-contraste .site-footer,
+.alto-contraste .DropDown-content {
+  background: #000000;
+  color: #ffffff;
+}
+
+.alto-contraste .site-header {
+  border-bottom: 2px solid #ffffff;
+}
+
+.alto-contraste .site-footer {
+  border-top: 2px solid #ffffff;
+}
+
+.alto-contraste h1,
+.alto-contraste h2,
+.alto-contraste h3,
+.alto-contraste legend,
+.alto-contraste .chart-title,
+.alto-contraste .page-header h1,
+.alto-contraste .confirmation-toast h1 {
+  color: #ffffff;
+}
+
+.alto-contraste .hero,
+.alto-contraste .hero-image {
+  background: #000000;
+}
+
+.alto-contraste .content-section.alt,
+.alto-contraste .cta,
+.alto-contraste .card,
+.alto-contraste .info-card,
+.alto-contraste .senior-extra,
+.alto-contraste .about-image,
+.alto-contraste form,
+.alto-contraste .notice,
+.alto-contraste .confirmation-toast,
+.alto-contraste .form-error-dialog {
+  background: #000000;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  box-shadow: none;
+}
+
+.alto-contraste .content-section.alt {
+  border-inline: 0;
+}
+
+.alto-contraste .notice,
+.alto-contraste .confirmation-toast {
+  border-left: 6px solid #ffff00;
+}
+
+.alto-contraste .cta h2,
+.alto-contraste .cta p {
+  color: #ffffff;
+}
+
+.alto-contraste a:not(.button) {
+  color: #ffff00;
+  text-decoration: underline;
+}
+
+.alto-contraste .logo {
+  text-decoration: none;
+}
+
+.alto-contraste .button,
+.alto-contraste .button-light {
+  border: 2px solid #ffff00;
+  background: #ffff00;
+  color: #000000;
+}
+
+.alto-contraste .button:hover {
+  filter: none;
+  background: #ffffff;
+}
+
+.alto-contraste input,
+.alto-contraste select,
+.alto-contraste textarea {
+  border: 2px solid #ffffff;
+  background: #000000;
+  color: #ffffff;
+}
+
+.alto-contraste .field.campo-erro input,
+.alto-contraste .field.campo-erro select {
+  border: 3px solid #ff8080;
+  background: #000000;
+}
+
+.alto-contraste .field.campo-ok input,
+.alto-contraste .field.campo-ok select {
+  border-color: #80ff80;
+}
+
+.alto-contraste .mensagem-erro,
+.alto-contraste .consent.campo-erro label,
+.alto-contraste .form-error-dialog {
+  color: #ff8080;
+}
+
+.alto-contraste .form-error-modal {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.alto-contraste .age-chart {
+  background: none;
+  border-bottom-color: #ffffff;
+}
+
+.alto-contraste .chart-bar {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: #000000;
+}
+
+.alto-contraste .bar-senior {
+  background: #ffff00;
+}
+
+.alto-contraste .menu-mobile span {
+  background-color: #ffffff;
+}
+
+.alto-contraste .toast-close,
+.alto-contraste .footer-limpar,
+.alto-contraste .contraste-toggle {
+  color: #ffffff;
+}
+
+.alto-contraste .toast-close:hover,
+.alto-contraste .toast-close:focus-visible {
+  background: #ffffff;
+  color: #000000;
+}
+
+.alto-contraste .contraste-toggle[aria-pressed="true"] {
+  border-color: #ffff00;
+  background: #ffff00;
+  color: #000000;
+}
+
+.alto-contraste .skip-link {
+  border-color: #ffff00;
+  background: #000000;
+  color: #ffff00;
+}
+
+.alto-contraste :focus-visible {
+  outline: 3px solid #ffff00;
+  outline-offset: 3px;
+}
+
+/* Modo de Alto Contraste do Windows (cores forcadas pelo sistema).
+   O sistema troca as cores; aqui garantimos que nada dependa so da
+   cor de fundo para aparecer. */
+@media (forced-colors: active) {
+  .menu-mobile span {
+    forced-color-adjust: none;
+    background-color: CanvasText;
+  }
+
+  .chart-bar {
+    forced-color-adjust: none;
+    border: 1px solid CanvasText;
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .button,
+  .toast-close,
+  .footer-limpar,
+  .contraste-toggle {
+    border: 2px solid ButtonText;
+  }
+
+  .field.campo-erro input,
+  .field.campo-erro select {
+    border-width: 3px;
   }
 }
