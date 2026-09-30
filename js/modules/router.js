@@ -30,7 +30,7 @@ export function createRouter({ app }) {
     return "notFound";
   };
 
-  const render = () => {
+  const render = (event) => {
     const route = normalizeRoute();
     const template = templates[route] ?? templates.notFound;
     const content = template();
@@ -41,6 +41,17 @@ export function createRouter({ app }) {
       new CustomEvent("route:rendered", { detail: { route } }),
     );
     window.scrollTo({ top: 0, behavior: "auto" });
+
+    // Ao trocar de página, o foco vai para o título da página nova, e o
+    // leitor de tela anuncia onde a pessoa chegou. No carregamento
+    // inicial o foco não é movido.
+    if (event?.type === "hashchange") {
+      const titulo = app.querySelector("h1");
+      if (titulo) {
+        titulo.setAttribute("tabindex", "-1");
+        titulo.focus({ preventScroll: true });
+      }
+    }
   };
 
   return {
