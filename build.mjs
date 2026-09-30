@@ -6,8 +6,9 @@
 
 import { build } from "esbuild";
 import { minify } from "html-minifier-terser";
-import { cp, mkdir, readFile, readdir, rm, stat, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, rm, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { otimizarImagens } from "./imagens.mjs";
 
 const DIST = "dist";
 
@@ -73,8 +74,8 @@ const nomeGerado = (resultado, extensao) =>
 const arquivoJs = nomeGerado(js, ".js");
 const arquivoCss = nomeGerado(css, ".css");
 
-// 4. Imagens e outros arquivos estáticos
-await cp("assets", path.join(DIST, "assets"), { recursive: true });
+// 4. Imagens: WebP + JPG recomprimido; o favicon é copiado como está
+const imagens = await otimizarImagens("assets", path.join(DIST, "assets"));
 
 // 5. HTML: troca os arquivos de desenvolvimento pelos gerados e minifica
 // (o replace remove o BOM, caractere invisível que alguns editores
@@ -126,5 +127,9 @@ for (const [tipo, antes, depois] of linhas) {
   console.log(
     `${tipo.padEnd(6)} ${kb(antes).padEnd(10)} ${kb(depois).padEnd(10)} ${reducao.padEnd(9)} ${arquivos}`,
   );
+}
+for (const { nome, original, webp } of imagens) {
+  const reducao = `${Math.round((1 - webp / original) * 100)}%`;
+  console.log(`${"IMG".padEnd(6)} ${kb(original).padEnd(10)} ${kb(webp).padEnd(10)} ${reducao.padEnd(9)} ${nome} -> WebP`);
 }
 console.log(`\nJS:  ${arquivoJs}\nCSS: ${arquivoCss}\n`);

@@ -73,7 +73,10 @@ export const templates = {
     <section class="content-section" aria-labelledby="sobre-title">
       <div class="about-layout">
         <figure class="feature-figure about-image">
-          <img src="assets/gato-idoso-cinza.jpg" alt="Gato de pelo longo acinzentado, deitado sobre uma superfície escura e olhando para a frente">
+          <picture>
+            <source srcset="assets/gato-idoso-cinza.webp" type="image/webp">
+            <img src="assets/gato-idoso-cinza.jpg" alt="Gato de pelo longo acinzentado, deitado sobre uma superfície escura e olhando para a frente" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
           <figcaption>Gato idoso cinza peludo</figcaption>
         </figure>
 
